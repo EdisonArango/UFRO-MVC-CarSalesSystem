@@ -1,0 +1,4 @@
+# UFRO-MVC-CarSalesSystem
+
+Se requiere realizar un portal web para una empresa dedicada a la comercialización de autos. El Cliente requiere gestionar el flujo de automóviles para estar al tanto de la disponibilidad de los mismos, tener un catálogo actualizable donde se presente cada uno con sus características. Además requiere un estado financiero que indique los movimientos realizados por la compra y/o venta de vehículos. 
+Se propone realizar diferentes vistas donde se implemente el CRUD (Create, Read, Update, Delete) para gestión de autos. En este sentido, tanto empleados como el administrador tendrán una vista especial que permita realizar estas tareas. Los Clientes (de la empresa) podrán visualizar el catálogo de todos los vehículos con sus respectivas características y podrán reservarlos para su posterior compra. //el admistrador puede ver las estadísticas.
