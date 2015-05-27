@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 27-05-2015 a las 23:12:39
+-- Tiempo de generación: 28-05-2015 a las 00:51:27
 -- Versión del servidor: 5.6.21
 -- Versión de PHP: 5.6.3
 
@@ -27,7 +27,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE IF NOT EXISTS `Empleado` (
-  `id` int(10) NOT NULL,
+`id` int(10) NOT NULL,
   `nombre` varchar(255) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,
   `usuario` varchar(255) DEFAULT NULL,
@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS `Empleado` (
 --
 
 CREATE TABLE IF NOT EXISTS `Imagen` (
-  `id` int(10) NOT NULL,
+`id` int(10) NOT NULL,
   `ruta` varchar(1000) DEFAULT NULL,
   `idVehiculo` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -53,7 +53,7 @@ CREATE TABLE IF NOT EXISTS `Imagen` (
 --
 
 CREATE TABLE IF NOT EXISTS `Reservador` (
-  `id` int(10) NOT NULL,
+`id` int(10) NOT NULL,
   `nombre` varchar(255) DEFAULT NULL,
   `telefono` varchar(255) DEFAULT NULL,
   `correo` varchar(255) DEFAULT NULL
@@ -66,7 +66,7 @@ CREATE TABLE IF NOT EXISTS `Reservador` (
 --
 
 CREATE TABLE IF NOT EXISTS `Vehiculo` (
-  `id` int(10) NOT NULL,
+`id` int(10) NOT NULL,
   `marca` varchar(255) DEFAULT NULL,
   `modelo` varchar(255) DEFAULT NULL,
   `año` int(4) DEFAULT NULL,
@@ -74,8 +74,9 @@ CREATE TABLE IF NOT EXISTS `Vehiculo` (
   `precio` int(10) DEFAULT NULL,
   `stock` int(5) DEFAULT NULL,
   `nuevo` int(1) DEFAULT NULL,
-  `fechaIngreso` varchar(10) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `fechaIngreso` varchar(10) DEFAULT NULL,
+  `detalles` varchar(3000) DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -131,21 +132,29 @@ ALTER TABLE `Venta`
 --
 
 --
+-- AUTO_INCREMENT de la tabla `Empleado`
+--
+ALTER TABLE `Empleado`
+MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `Imagen`
+--
+ALTER TABLE `Imagen`
+MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `Reservador`
+--
+ALTER TABLE `Reservador`
+MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `Vehiculo`
+--
+ALTER TABLE `Vehiculo`
+MODIFY `id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+--
 -- AUTO_INCREMENT de la tabla `Venta`
 --
 ALTER TABLE `Venta`
-MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
-
-ALTER TABLE `Empleado`
-MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
-
-ALTER TABLE `Imagen`
-MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
-
-ALTER TABLE `Reservador`
-MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
-
-ALTER TABLE `Vehiculo`
 MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
 --
 -- Restricciones para tablas volcadas

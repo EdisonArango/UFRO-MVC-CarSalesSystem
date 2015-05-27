@@ -1,12 +1,13 @@
 package modelo.servicios;
 
 import java.util.ArrayList;
+import modelo.persistencia.Imagen;
 import modelo.persistencia.Vehiculo;
 import org.orm.PersistentException;
 
 public class Factoria {
 
-	public String crearVehiculo(boolean nuevo, String marca, String modelo, int año, int kilometraje, int precio, int stock, String fechaIngreso) {
+	public static String crearVehiculo(boolean nuevo, String marca, String modelo, int año, int kilometraje, int precio, int stock, String detalles,String[] imagenes,String fechaIngreso) {
             try {
                 Vehiculo vehiculoNuevo = Vehiculo.createVehiculo();
                 if (nuevo) {
@@ -22,8 +23,16 @@ public class Factoria {
                 vehiculoNuevo.setModel(modelo);
                 vehiculoNuevo.setAño(año);
                 vehiculoNuevo.setPrecio(precio);
+                vehiculoNuevo.setDetalles(detalles);
                 vehiculoNuevo.setFechaIngreso(fechaIngreso);
-
+                
+                if(imagenes!=null){
+                    for (int i = 0; i < imagenes.length; i++) {
+                        Imagen nuevaImagen = Imagen.createImagen();
+                        nuevaImagen.setRuta(imagenes[i]);
+                        vehiculoNuevo.imagenes.add(nuevaImagen);
+                    }
+                }
                 vehiculoNuevo.save();
                 return "El vehiculo se ha agregado con éxito";
             } catch (PersistentException e) {

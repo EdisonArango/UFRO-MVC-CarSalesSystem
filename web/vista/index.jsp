@@ -9,11 +9,11 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" href="css/styles.css"/>
-        <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css"/>
-        <!--<link rel="stylesheet" href="lib/bootstrap/css/bootstrap-theme.min.css"/>-->
-        <script src="lib/jquery1.11.2.js"></script>
-        <script src="lib/bootstrap/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="vista/css/styles.css"/>
+        <link rel="stylesheet" href="vista/lib/bootstrap/css/bootstrap.min.css"/>
+        <!--<link rel="stylesheet" href="vista/lib/bootstrap/css/bootstrap-theme.min.css"/>-->
+        <script src="vista/lib/jquery1.11.2.js"></script>
+        <script src="vista/lib/bootstrap/js/bootstrap.min.js"></script>
         <title>Car Sales System</title>
     </head>
     <body>
@@ -34,7 +34,7 @@
               <!-- Collect the nav links, forms, and other content for toggling -->
               <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
-                  <li><a href="http://localhost:8080/Login-MVC-JSP/vista/login-form.jsp">Ingresar</a></li>
+                  <li><a href="vista/agregarAuto.jsp">Ingresar</a></li>
                 </ul>
                   
                   <form class="navbar-form">
@@ -67,11 +67,20 @@
                     </div>
                 <div style="height:300px;"></div>
             </div>
+        
+        <% 
+                String mensaje = (String)request.getAttribute("mensaje");
+                if(mensaje!=null&&mensaje!=""){ %>
+                <div style="padding-left: 26%;" class="alert alert-${tipoMensaje} alert-dismissable mensaje">
+                      <button type="button" class="close" data-dismiss="alert">&times;</button>
+                      <strong>${mensajeTitulo}</strong> ${mensaje}
+                </div>
+       <% } %>
         <ul>
             <li style="padding-left: 10px;" class="media border_bottom">
                 <div class="media-left">
                   <a href="#">
-                    <img style="width: 150px;height: 110px;" class="thumbnail" src="resources/lamborghini.jpg" alt="">
+                    <img style="width: 150px;height: 110px;" class="thumbnail" src="vista/resources/lamborghini.jpg" alt="">
                   </a>
                 </div>
                  <div style="padding-top:12px; " class="media-body">

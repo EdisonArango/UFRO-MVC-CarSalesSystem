@@ -397,6 +397,9 @@ public class Vehiculo implements Serializable {
 	@Column(name="fechaIngreso", nullable=true, length=10)	
 	private String fechaIngreso;
 	
+        @Column(name="detalles", nullable=true, length=3000)	
+	private String detalles;
+        
 	@OneToMany(targetEntity=modelo.persistencia.Imagen.class)	
 	@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE, org.hibernate.annotations.CascadeType.LOCK})	
 	@JoinColumns({ @JoinColumn(name="idVehiculo", nullable=false) })	
@@ -497,6 +500,14 @@ public class Vehiculo implements Serializable {
 	
 	public String getFechaIngreso() {
 		return fechaIngreso;
+	}
+        
+        public void setDetalles(String value) {
+		this.detalles = value;
+	}
+	
+	public String getDetalles() {
+		return detalles;
 	}
 	
 	private void setORM_Imagenes(java.util.Set value) {

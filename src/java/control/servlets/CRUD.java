@@ -5,6 +5,7 @@
  */
 package control.servlets;
 
+import control.util.Utilidades;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -12,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import modelo.servicios.Factoria;
 
 /**
  *
@@ -37,10 +39,34 @@ public class CRUD extends HttpServlet {
         if (tipo!=null) {
             switch (tipo){
                 case "nuevoVehiculo":
-//                        request.getAttribute(tipo)
+                    String marca,modelo,detalles;
+                    int año=-1,kilometraje=-1,precio=-1;
+                    marca = request.getParameter("marca");
+                    modelo = request.getParameter("modelo");
+                    if (Utilidades.isNumeric(request.getParameter("anio"))){
+                        año = Integer.valueOf(request.getParameter("anio"));
+                    }
+                    if (Utilidades.isNumeric(request.getParameter("kilometraje"))){
+                        kilometraje = Integer.valueOf(request.getParameter("kilometraje"));
+                    }
+                    detalles = request.getParameter("detalles");
+                    if (Utilidades.isNumeric(request.getParameter("precio"))){
+                        precio = Integer.valueOf(request.getParameter("precio"));
+                    }
+                    String mensaje = Factoria.crearVehiculo(false, marca, modelo, año, kilometraje, precio, 1, detalles, null,"DD/MM/AAAA");
+                    if (mensaje.equals("El vehiculo se ha agregado con éxito")) {
+                        request.setAttribute("tipoMensaje", "success");
+                        request.setAttribute("mensajeTitulo", "Bien!");
+                    }
+                    else{
+                        request.setAttribute("tipoMensaje", "error");
+                        request.setAttribute("mensajeTitulo", "Error!");
+                    }
+                    request.setAttribute("mensaje", mensaje);
+                    request.getRequestDispatcher("vista/index.jsp").forward(request, response);
                     break;
                 default:
-                    request.getRequestDispatcher("index.jsp").forward(request, response);
+                    request.getRequestDispatcher("vista/index.jsp").forward(request, response);
                     break;
             }
         }
