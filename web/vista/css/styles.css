@@ -24,3 +24,7 @@ and open the template in the editor.
 .border_bottom {
 	border-bottom: 1px solid #ccc;
 }
+
+.fila{
+    margin-bottom: 5px;
+}

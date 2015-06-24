@@ -17,12 +17,14 @@
         <title>Agregar Auto</title>
     </head>
     <body>
+            <div class="row">
+                <div class="col-md-8">
         <h1>Agregar nuevo auto</h1>
         <form method="get" action="../CRUD">
             <input type="hidden" name="tipo" value="nuevoVehiculo">
-                <div class="form-inline">
-                    <div class="form-group">
-                      <label for="marca">Marca</label>
+                <div class="row fila form-inline">
+                    <div class="col-md-3 form-group">
+                      <label for="marca">Marca:</label>
                       <select class="form-control" name="marca" id="marca">
                           <option value="ferrari">Ferrari</option> 
                           <option value="lamborghini">Lamborghini</option>   
@@ -30,16 +32,20 @@
                           <option value="BMW">BMW</option>   
                       </select>
                     </div>
-                    <div class="form-group">
-                      <label for="modelo">Modelo</label>
+                    <div class="col-md-4 form-group">
+                      <label for="modelo">Modelo:</label>
                       <input type="text" class="form-control" id="modelo" name="modelo" placeholder="Camaro">
                     </div>
                 </div>
                 <div class="form-horizontal">
-                    <div class="form-group">
-                    <label for="año" class="col-sm-2 control-label">Año</label>
-                    <div class="col-sm-10">
-                      <input type="number" class="form-control" id="año" name="anio" placeholder="2015">
+                    <div class="row form-group">
+                        <div class="row col-md-7">
+                        <div class="col-md-1">
+                        <label for="año" class="control-label">Año:</label>
+                        </div>
+                        <div class="col-md-11">
+                          <input type="number" class="form-control" id="año" name="anio" placeholder="2015">
+                        </div>
                     </div>
                   </div>
                     <div class="form-group">
@@ -76,5 +82,8 @@
                 </div>
                 <button type="submit" class="btn btn-primary">Guardar</button>
             </form>
+         </div>
+            </div>
+           
     </body>
 </html>
