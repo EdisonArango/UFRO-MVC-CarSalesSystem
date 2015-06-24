@@ -69,7 +69,7 @@ public class Factoria {
 
 	public Vehiculo[] obtenerVehiculos(String busqueda) throws PersistentException {
         
-	return Vehiculo.listVehiculoByQuery(null, null);
+            return Vehiculo.listVehiculoByQuery(null, null);
                                 
 	}
 
