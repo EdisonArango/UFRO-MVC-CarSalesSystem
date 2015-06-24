@@ -11,9 +11,16 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="css/styles.css"/>
         <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/themes/base/jquery-ui.css"/>
+        <link rel="stylesheet" href="lib/plupload/jquery.ui.plupload/css/jquery.ui.plupload.css"/>
         <!--<link rel="stylesheet" href="lib/bootstrap/css/bootstrap-theme.min.css"/>-->
         <script src="lib/jquery1.11.2.js"></script>
         <script src="lib/bootstrap/js/bootstrap.min.js"></script>
+        <script src="lib/plupload/jquery-ui.js"></script>
+        <script src="lib/plupload/plupload.full.min.js"></script>
+        <script src="lib/plupload/jquery.ui.plupload/jquery.ui.plupload.js"></script>
+        <script src="lib/plupload/i18n/es.js"></script>
+        <script src="js/propiedadesPlupload.js"></script>
         <title>Agregar Auto</title>
     </head>
     <body>
@@ -80,6 +87,7 @@
                     </div>
                   </div>
                 </div>
+            <div id="uploader">No sirve el plupload</div>
                 <button type="submit" class="btn btn-primary">Guardar</button>
             </form>
          </div>
