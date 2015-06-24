@@ -1,7 +1,11 @@
 package modelo.servicios;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import modelo.persistencia.Empleado;
 import modelo.persistencia.Imagen;
+import modelo.persistencia.Reservador;
 import modelo.persistencia.Vehiculo;
 import org.orm.PersistentException;
 
@@ -42,8 +46,25 @@ public class Factoria {
 	}
 
 	public String crearEmpleado(String nombre, String usuario, String pass, int tipoUsuario) {
-		throw new UnsupportedOperationException();
-	}
+            try {
+                Empleado empleadoNuevo = Empleado.createEmpleado();
+                // tipoUsuario = 0, si Usuario es Administrador
+                // tipoUsuario = 1, si Usuario es Vendedor
+                if (tipoUsuario==0){
+                    empleadoNuevo.setTipoUsuario(0);
+                }
+                else if(tipoUsuario==1){
+                    empleadoNuevo.setTipoUsuario(1);
+                }
+                empleadoNuevo.setNombre(nombre);
+                empleadoNuevo.setPassword(pass);
+                empleadoNuevo.setUsuario(usuario);
+                empleadoNuevo.save();
+                return "Se ha agregado empleado con éxito";
+            } catch (PersistentException ex) {
+                return "Error al ingresar empleado";
+            }
+       }
 
 	public ArrayList<Vehiculo> obtenerVehiculos(String busqueda) {
 		throw new UnsupportedOperationException();
@@ -53,7 +74,20 @@ public class Factoria {
 		throw new UnsupportedOperationException();
 	}
 
-	public String crearReserva(int idVehiculo, String nombreReserv, String telefonoReserv, String correo) {
-		throw new UnsupportedOperationException();
-	}
+//	public String crearReserva(int idVehiculo, String nombreReserv, String telefonoReserv, String correo) {
+////        Reservador nuevaReserva = Reservador.createReservador();
+////             if(nuevaReserva!=null){
+////                nuevaReserva.setNombre(nombreReserv);
+////                nuevaReserva.setTelefono(telefonoReserv);
+////                nuevaReserva.setCorreo(correo);
+////                 try {
+////                     nuevaReserva.save();
+////                 } catch (PersistentException ex) {
+////                     Logger.getLogger(Factoria.class.getName()).log(Level.SEVERE, null, ex);
+////                 }
+////                return "La reserva se ha realizado con éxito";
+////             }else{
+////                 return "La reserva ya existe!!";
+////             }
+//	}
 }
