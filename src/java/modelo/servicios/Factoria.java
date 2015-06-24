@@ -11,7 +11,8 @@ import org.orm.PersistentException;
 
 public class Factoria {
 
-	public static String crearVehiculo(boolean nuevo, String marca, String modelo, int año, int kilometraje, int precio, int stock, String detalles,String[] imagenes,String fechaIngreso) {
+	public static String crearVehiculo(boolean nuevo, String marca, String modelo, int año,
+                int kilometraje, int precio, int stock, String detalles,String[] imagenes,String fechaIngreso) {
             try {
                 Vehiculo vehiculoNuevo = Vehiculo.createVehiculo();
                 if (nuevo) {
@@ -60,34 +61,50 @@ public class Factoria {
                 empleadoNuevo.setPassword(pass);
                 empleadoNuevo.setUsuario(usuario);
                 empleadoNuevo.save();
-                return "Se ha agregado empleado con éxito";
+                return "Se ha creado empleado con éxito";
             } catch (PersistentException ex) {
                 return "Error al ingresar empleado";
             }
        }
 
-	public ArrayList<Vehiculo> obtenerVehiculos(String busqueda) {
-		throw new UnsupportedOperationException();
+	public Vehiculo[] obtenerVehiculos(String busqueda) throws PersistentException {
+        
+            return Vehiculo.listVehiculoByQuery(null, null);
+                                
 	}
 
 	public Vehiculo obtenerVehiculo(int id) {
-		throw new UnsupportedOperationException();
+            try {
+                Vehiculo vehiculo = Vehiculo.loadVehiculoByORMID(id);
+                if(vehiculo!=null){
+                    return vehiculo;
+                }
+                else{
+                    return null;
+                }
+            } catch (PersistentException ex) {
+                Logger.getLogger(Factoria.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            return null;
 	}
 
-//	public String crearReserva(int idVehiculo, String nombreReserv, String telefonoReserv, String correo) {
-////        Reservador nuevaReserva = Reservador.createReservador();
-////             if(nuevaReserva!=null){
-////                nuevaReserva.setNombre(nombreReserv);
-////                nuevaReserva.setTelefono(telefonoReserv);
-////                nuevaReserva.setCorreo(correo);
-////                 try {
-////                     nuevaReserva.save();
-////                 } catch (PersistentException ex) {
-////                     Logger.getLogger(Factoria.class.getName()).log(Level.SEVERE, null, ex);
-////                 }
-////                return "La reserva se ha realizado con éxito";
-////             }else{
-////                 return "La reserva ya existe!!";
-////             }
-//	}
+	public String crearReserva(int idVehiculo, String nombreReserv, String telefonoReserv, String correo) {
+                     
+        Reservador reserva = Reservador.createReservador();
+        //si reserva no existe, entonces se crea
+        //sino, mensaje indicando que ya existe!.
+        if(reserva!=null){
+            try {
+                reserva.setNombre(nombreReserv);
+                reserva.setTelefono(telefonoReserv);
+                reserva.setCorreo(correo);
+                reserva.save();
+                return "La reserva se ha realizado con éxito";
+             } catch (PersistentException ex) {
+                return "Error al realizar reserva";
+             }
+        }else{
+            return "La reserva ya existe!!";
+        }
+	}
 }

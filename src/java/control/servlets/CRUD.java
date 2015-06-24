@@ -53,7 +53,12 @@ public class CRUD extends HttpServlet {
                     if (Utilidades.isNumeric(request.getParameter("precio"))){
                         precio = Integer.valueOf(request.getParameter("precio"));
                     }
-                    String mensaje = Factoria.crearVehiculo(false, marca, modelo, año, kilometraje, precio, 1, detalles, null,"DD/MM/AAAA");
+                    int id = -1;
+                    if(request.getParameter("id")!=null){
+                      id = Integer.valueOf(request.getParameter("id"));  
+                    }
+                     
+                    String mensaje = Factoria.crearVehiculo(id,false, marca, modelo, año, kilometraje, precio, 1, detalles, null,"DD/MM/AAAA");
                     if (mensaje.equals("El vehiculo se ha agregado con éxito")) {
                         request.setAttribute("tipoMensaje", "success");
                         request.setAttribute("mensajeTitulo", "Bien!");
