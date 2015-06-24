@@ -22,9 +22,13 @@ and open the template in the editor.
 }
 
 .border_bottom {
-	border-bottom: 1px solid #ccc;
+	border-bottom: 2px solid #ccc;
 }
 
 .fila{
     margin-bottom: 5px;
+}
+
+.margenArriba{
+    margin-top: 6px;
 }

@@ -6,7 +6,7 @@
 
 // Initialize the widget when the DOM is ready
 $(function() {
-	$("#uploader").plupload({
+	$("#plupload").plupload({
 		// General settings
 		runtimes : 'html5,flash,html4',
 		url : '',
