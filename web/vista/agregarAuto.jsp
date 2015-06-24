@@ -19,7 +19,7 @@
         <script src="lib/plupload/jquery-ui.js"></script>
         <script src="lib/plupload/plupload.full.min.js"></script>
         <script src="lib/plupload/jquery.ui.plupload/jquery.ui.plupload.js"></script>
-        <!--<script src="lib/plupload/i18n/es.js"></script>-->
+        <script src="lib/plupload/i18n/es.js"></script>
         <script src="js/propiedadesPlupload.js"></script>
         <script src="js/funciones.js"></script>
         <title>Agregar Auto</title>
@@ -28,7 +28,7 @@
         <div style="margin-left: 300px;margin-right: 300px;border: 1px solid #ccc;">
             <h2>Agregar nuevo auto</h2>
             <div style="margin-bottom: 4px;" class="border_bottom"></div>
-            <form method="get" action="../CRUD">
+            <form method="get" action="../CRUD" enctype="multipart/form-data">
             <input type="hidden" name="tipo" value="nuevoVehiculo">
             <!--<input type="hidden" name="fotos" id="fotos">-->
             
@@ -99,8 +99,8 @@
                   </div>
             
             <div id="plupload">No sirve el plupload</div>
-                
-            <button type="submit" class="btn btn-primary">Guardar</button>
+            <br>
+            <button style="width: 200px;" type="submit" class="btn btn-primary">Guardar</button>
             </form>
             </div>
     </body>
