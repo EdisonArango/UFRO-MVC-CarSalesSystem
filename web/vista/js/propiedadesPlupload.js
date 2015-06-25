@@ -77,13 +77,19 @@
 
 
 $(function() {
+    var id = $('#id').val();
+    var actual = $('#actual').val();
     $("#plupload").plupload({
         // General settings
         runtimes : 'html5,flash,silverlight,html4',
         url : "../Upload",
  
         // Maximum file size
-        max_file_size : '2mb',
+        max_file_size : '5mb',
+//        multipart : true,
+        multipart_params : {'id': id,
+                            'actual': actual
+                        },
  
         // Resize images on clientside if we can
         resize : {
@@ -113,11 +119,19 @@ $(function() {
             thumbs: true, // Show thumbs
             active: 'thumbs'
         },
+        
+        init : {
+                    FileUploaded: function(up, file, info) {
+                        $('#actual').val(parseInt($('#actual').val())+1);
+                    }
+        },
  
         // Flash settings
         flash_swf_url : '../lib/plupload/js/Moxie.swf',
      
         // Silverlight settings
         silverlight_xap_url : '../lib/plupload/js/Moxie.xap'
+        
+        
     });
 });

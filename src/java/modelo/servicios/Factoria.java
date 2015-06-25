@@ -11,6 +11,11 @@ import org.orm.PersistentException;
 
 public class Factoria {
 
+        public static int crearVehiculo(){
+            Vehiculo vehiculoNuevo = Vehiculo.createVehiculo();
+            return vehiculoNuevo.getId();
+        }
+        
 	public static String crearVehiculo(int id,boolean nuevo, String marca, String modelo, int año,
                 int kilometraje, int precio, int stock, String detalles,String[] imagenes,String fechaIngreso) {
             try {

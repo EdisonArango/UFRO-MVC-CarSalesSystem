@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import modelo.servicios.Factoria;
 
 /**
  *
@@ -32,8 +33,9 @@ public class NuevoAuto extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-//        int id = 
-//        request.setAttribute("id", );
+        int id = Factoria.crearVehiculo();
+        request.setAttribute("id", id);
+        request.getRequestDispatcher("vista/agregarAuto.jsp").forward(request, response);
         
     }
 

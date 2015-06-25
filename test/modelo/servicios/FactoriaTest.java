@@ -6,6 +6,7 @@
 
 package modelo.servicios;
 
+import control.util.Utilidades;
 import java.util.ArrayList;
 import modelo.persistencia.Empleado;
 import modelo.persistencia.Vehiculo;
@@ -115,19 +116,26 @@ public class FactoriaTest {
 //    /**
 //     * Test of crearReserva method, of class Factoria.
 //     */
-    @Test
-    public void testCrearReserva() {
-        System.out.println("crearReserva");
-        int idVehiculo = 0;
-        String nombreReserv = "Juan";
-        String telefonoReserv = "555555";
-        String correo = "juan@gmail.com";
-        Factoria instance = new Factoria();
-        String expResult = "La reserva se ha realizado con éxito";
-        String result = instance.crearReserva(idVehiculo, nombreReserv, telefonoReserv, correo);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
+//    @Test
+//    public void testCrearReserva() {
+//        System.out.println("crearReserva");
+//        int idVehiculo = 0;
+//        String nombreReserv = "Juan";
+//        String telefonoReserv = "555555";
+//        String correo = "juan@gmail.com";
+//        Factoria instance = new Factoria();
+//        String expResult = "La reserva se ha realizado con éxito";
+//        String result = instance.crearReserva(idVehiculo, nombreReserv, telefonoReserv, correo);
+//        assertEquals(expResult, result);
+//        // TODO review the generated test code and remove the default call to fail.
+//        //fail("The test case is a prototype.");
+//    }
+    
+     @Test
+    public void testNuevoVehiculo() {
+         int id = Factoria.crearVehiculo();
+         System.out.println(id);
+         assertTrue(Utilidades.isNumeric(id+""));
     }
     
 }
