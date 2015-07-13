@@ -7,6 +7,7 @@ import modelo.persistencia.Empleado;
 import modelo.persistencia.Imagen;
 import modelo.persistencia.Reservador;
 import modelo.persistencia.Vehiculo;
+import modelo.persistencia.Venta;
 import org.orm.PersistentException;
 
 public class Factoria {
@@ -34,6 +35,7 @@ public class Factoria {
                 else{
                     vehiculoNuevo.setNuevo(0);
                     vehiculoNuevo.setKilometraje(kilometraje);
+                    vehiculoNuevo.setStock(1);
                 }
                 vehiculoNuevo.setMarca(marca);
                 vehiculoNuevo.setModel(modelo);
@@ -57,22 +59,17 @@ public class Factoria {
                 
 	}
 
-	public String crearEmpleado(String nombre, String usuario, String pass, int tipoUsuario) {
+	public static String crearEmpleado(String nombre, String usuario, String pass, int tipoUsuario) {
             try {
                 Empleado empleadoNuevo = Empleado.createEmpleado();
                 // tipoUsuario = 0, si Usuario es Administrador
                 // tipoUsuario = 1, si Usuario es Vendedor
-                if (tipoUsuario==0){
-                    empleadoNuevo.setTipoUsuario(0);
-                }
-                else if(tipoUsuario==1){
-                    empleadoNuevo.setTipoUsuario(1);
-                }
+                empleadoNuevo.setTipoUsuario(tipoUsuario);
                 empleadoNuevo.setNombre(nombre);
                 empleadoNuevo.setPassword(pass);
                 empleadoNuevo.setUsuario(usuario);
                 empleadoNuevo.save();
-                return "Se ha creado empleado con éxito";
+                return "Se ha creado el empleado con éxito";
             } catch (PersistentException ex) {
                 return "Error al ingresar empleado";
             }
@@ -94,22 +91,26 @@ public class Factoria {
 	}
 
 	public static String crearReserva(int idVehiculo, String nombreReserv, String telefonoReserv, String correo) {
-                     
-        Reservador reserva = Reservador.createReservador();
-        //si reserva no existe, entonces se crea
-        //sino, mensaje indicando que ya existe!.
-        if(reserva!=null){
             try {
+                Venta venta = Venta.createVenta();
+                venta.setEstaVendido(0);
+                Vehiculo vehiculo = obtenerVehiculo(idVehiculo+"");
+                if (vehiculo.getStock()==0) {
+                    return "Este vehiculo no esta disponible en el momento";
+                }
+                venta.setVehiculo(vehiculo);
+                Reservador reserva = Reservador.createReservador();
                 reserva.setNombre(nombreReserv);
                 reserva.setTelefono(telefonoReserv);
                 reserva.setCorreo(correo);
                 reserva.save();
+                venta.setReservador(reserva);
+                venta.save();
+                vehiculo.setStock(vehiculo.getStock()-1);
+                vehiculo.save();
                 return "La reserva se ha realizado con éxito";
-             } catch (PersistentException ex) {
+            } catch (PersistentException ex) {
                 return "Error al realizar reserva";
-             }
-        }else{
-            return "La reserva ya existe!!";
-        }
+            }
 	}
 }

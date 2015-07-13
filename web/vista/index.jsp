@@ -39,12 +39,13 @@
         </div>
         
          <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+             
             <% 
             String mensaje = (String)request.getAttribute("mensaje");
             if(mensaje!=null&&mensaje!=""){ %>
-            <div style="padding-left: 26%;" class="alert alert-${tipoMensaje} alert-dismissable mensaje">
+            <div style="padding-left: 26%;margin-top: 10px;" class="alert alert-${tipoMensaje} alert-dismissable mensaje">
                   <button type="button" class="close" data-dismiss="alert">&times;</button>
-                  <strong>${mensajeTitulo}</strong> ${mensaje}
+                  <p class="letraMediana"><strong>${mensajeTitulo}</strong> ${mensaje}<p>
             </div>
            <% } %>
 

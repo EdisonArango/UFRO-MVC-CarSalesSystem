@@ -19,12 +19,12 @@
                        <% if(!vehiculos[i].imagenes.isEmpty()){ 
                             out.print("src='file/"+vehiculos[i].imagenes.toArray()[0].getRuta()+"'");
                             } else {
-                           out.print("src='vista/resources/lamborghini.jpg'");
+                           out.print("src='vista/resources/sin-imagen.png'");
                             } %>
                          alt="">
                   </a>
                 </div>
-                 <div style="padding-top:12px; " class="media-body">
+                <div style="padding-top:12px; " class="media-body">
                      <h4><a href="VistaAuto?id=<%=vehiculos[i].getId()%>" class="media-heading"><%=vehiculos[i].getMarca()%> <%=vehiculos[i].getModel()%> 
                          <% if(vehiculos[i].getNuevo()==1){ %>
                          <span class="label label-info">Nuevo</span>

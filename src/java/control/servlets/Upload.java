@@ -59,7 +59,7 @@ public class Upload extends HttpServlet {
 //           FileItem uploaded = (FileItem) item;
             
             if(!item.isFormField()){
-                String nombre=item.getName();
+                String nombre = item.getName().replaceAll("\\s","");
 //                String[] partesNombre = nombre.split("\\.");
                 File dstFile = new File(ruta);
                     if (!dstFile.exists()){

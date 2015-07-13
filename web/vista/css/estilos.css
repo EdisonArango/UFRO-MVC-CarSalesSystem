@@ -193,3 +193,8 @@ tbody > tr > td {
 .letraMediana {
     font-size:1.3em;
 }
+
+.leadCentrado {
+    margin-top: 20px;
+    font-size: 1.9em;
+}

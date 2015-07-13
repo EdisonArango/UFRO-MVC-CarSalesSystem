@@ -7,20 +7,23 @@ package control.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import modelo.servicios.Factoria;
+import modelo.persistencia.Empleado;
+import org.orm.PersistentException;
 
 /**
  *
  * @author edisonarango
  */
-@WebServlet(name = "NuevoAuto", urlPatterns = {"/NuevoAuto"})
-public class NuevoAuto extends HttpServlet {
+@WebServlet(name = "Login", urlPatterns = {"/Login"})
+public class Login extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,18 +36,51 @@ public class NuevoAuto extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        String tipo = request.getParameter("tipo");
         HttpSession sesion = request.getSession();
-        if (sesion.getAttribute("nombre")==null){ 
-                request.setAttribute("tipoMensaje", "warning");
-                request.setAttribute("mensajeTitulo", "Error!");
-                request.setAttribute("mensaje", "Debe iniciar sesión para poder ver este página");
-                request.getRequestDispatcher("vista/index.jsp").forward(request, response);
+        if (tipo==null||tipo.equals("")) {
+            if (sesion.getAttribute("nombre")!=null) {
+                if (sesion.getAttribute("tipoUsuario").equals(0)){
+                    request.getRequestDispatcher("vista/admin.jsp").forward(request, response);
+                }
+                else if(sesion.getAttribute("tipoUsuario").equals(1)){
+                    request.getRequestDispatcher("vista/vendedor.jsp").forward(request, response);
+                }
+            }
+            else{
+                request.getRequestDispatcher("vista/login.jsp").forward(request, response);
+            }  
         }
-        else{
-            request.getRequestDispatcher("vista/agregarAuto.jsp").forward(request, response);
+        else if (tipo.equals("login")) {
+            String usuario = request.getParameter("usuario");
+            String pass = request.getParameter("password");
+            Empleado empleado = null;
+            try {
+                empleado = modelo.servicios.Login.iniciarSesion(usuario, pass);
+            } catch (PersistentException ex) {
+                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            if (empleado!=null) {
+                sesion.setAttribute("nombre",empleado.getNombre());
+                sesion.setAttribute("tipoUsuario", empleado.getTipoUsuario());
+                if (empleado.getTipoUsuario()==0) {
+                    request.getRequestDispatcher("vista/admin.jsp").forward(request, response);
+                }
+                else if(empleado.getTipoUsuario()==1){
+                    request.getRequestDispatcher("vista/vendedor.jsp").forward(request, response);
+                }
+                else{
+                    request.getRequestDispatcher("vista/index.jsp").forward(request, response);
+                }
+            }
+            else{
+                request.getRequestDispatcher("vista/login.jsp").forward(request, response);
+            }
         }
-          
+        else if(tipo.equals("cerrarSesion")){
+            sesion.invalidate();
+            request.getRequestDispatcher("vista/index.jsp").forward(request, response);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

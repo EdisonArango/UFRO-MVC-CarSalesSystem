@@ -29,7 +29,7 @@
         <div style="margin-left: 300px;margin-right: 300px;padding: 10px;background-color: #ffffff">
             <h2>Agregar nuevo auto</h2>
             <div style="margin-bottom: 4px;" class="border_bottom"></div>
-            <form method="post" action="CRUD" enctype="multipart/form-data">
+            <form method="get" action="CRUD" enctype="multipart/form-data">
             <input type="hidden" name="tipo" value="nuevoVehiculo">
             <input type="hidden" name="fotos" id="fotos" value="">            
             <div class="row">
@@ -37,9 +37,9 @@
                 <div class="form-group col-md-4">
                   <label for="marca">Marca:</label>
                   <select class="form-control" name="marca" id="marca">
-                      <option value="ferrari">Ferrari</option> 
-                      <option value="lamborghini">Lamborghini</option>   
-                      <option value="audi">Audi</option>   
+                      <option value="Ferrari">Ferrari</option> 
+                      <option value="Lamborghini">Lamborghini</option>   
+                      <option value="Audi">Audi</option>   
                       <option value="BMW">BMW</option> 
                       <option value="otro">Otro</option>   
                   </select>

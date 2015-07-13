@@ -164,7 +164,7 @@ MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
 -- Filtros para la tabla `Imagen`
 --
 ALTER TABLE `Imagen`
-ADD CONSTRAINT `FKImagen533383` FOREIGN KEY (`idVehiculo`) REFERENCES `Vehiculo` (`id`);
+ADD CONSTRAINT `FKImagen533383` FOREIGN KEY (`idVehiculo`) REFERENCES `Vehiculo` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `Venta`

@@ -37,7 +37,7 @@ public class VistaAuto extends HttpServlet {
         String idAuto = request.getParameter("id");
         Vehiculo vehiculo = Factoria.obtenerVehiculo(idAuto);
         if (vehiculo==null) {
-            request.setAttribute("tipoMensaje", "error");
+            request.setAttribute("tipoMensaje", "danger");
             request.setAttribute("mensajeTitulo", "Error!");
             request.setAttribute("mensaje", "Lo sentimos, no hemos encontrado el vehículo solicitado");
             request.getRequestDispatcher("vista/index.jsp").forward(request, response);

@@ -22,7 +22,21 @@
               <!-- Collect the nav links, forms, and other content for toggling -->
               <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
-                  <li><a href="NuevoAuto">Ingresar</a></li>
+                    <% if (session.getAttribute("nombre")!=null){ %>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%=session.getAttribute("nombre")%> <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <% if (session.getAttribute("tipoUsuario").equals(0)){ %>
+                                <li><a href="Login">Administración</a></li>
+                            <% }else if (session.getAttribute("tipoUsuario").equals(1)){%>
+                                <li><a href="Login">Gestión de Autos</a></li>      
+                            <%}%>
+                          <li><a href="Login?tipo=cerrarSesion">Cerrar Sesión</a></li>
+                        </ul>
+                    </li>
+                    <% }else{ %>
+                  <li><a href="Login">Ingresar</a></li>
+                    <% } %>
                 </ul>
                   
                   <form class="navbar-form">

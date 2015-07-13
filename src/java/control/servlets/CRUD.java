@@ -86,6 +86,22 @@ public class CRUD extends HttpServlet {
                     request.getRequestDispatcher("vista/index.jsp").forward(request, response);
 //                    response.sendRedirect("Inicio?mensaje="+mensaje);
                     break;
+                case "nuevoEmpleado":
+                    String usuario = request.getParameter("usuario");
+                    String nombre = request.getParameter("nombre");
+                    String pass = request.getParameter("password");
+                    String resultado = Factoria.crearEmpleado(nombre, usuario, pass, 1);
+                    if (resultado.equals("Se ha creado el empleado con éxito")) {
+                        request.setAttribute("tipoMensaje", "success");
+                        request.setAttribute("mensajeTitulo", "Bien!");
+                    }
+                    else{
+                        request.setAttribute("tipoMensaje", "danger");
+                        request.setAttribute("mensajeTitulo", "Error!");
+                    }
+                    request.setAttribute("mensaje", resultado);
+                    request.getRequestDispatcher("vista/admin.jsp").forward(request, response);
+                    break;
                 default:
                     request.getRequestDispatcher("vista/index.jsp").forward(request, response);
                     break;

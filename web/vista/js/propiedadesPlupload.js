@@ -49,15 +49,17 @@ $(function() {
 
         init : {
                     FileUploaded: function(up, file, info) {
-                        $('#fotos').val($('#fotos').val() +file.name+";");
+                        var nombre = file.name.replace(/\s/g, '');
+                        $('#fotos').val($('#fotos').val() +nombre+";");
                     },
                     FilesRemoved: function(up, files) {
 
                     plupload.each(files, function(file) {
+                        var nombre = file.name.replace(/\s/g, '');
                         var fotos = $('#fotos').val().split(";");
                         $('#fotos').val("");
                         for (var i = 0; i < fotos.length; i++) {
-                            if (fotos[i]===file.name||fotos[i]==='') {
+                            if (fotos[i]===nombre||fotos[i]==='') {
                                    continue;
                              }
                              $('#fotos').val($('#fotos').val() +fotos[i]+";");
