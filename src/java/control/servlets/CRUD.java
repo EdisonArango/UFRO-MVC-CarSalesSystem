@@ -40,8 +40,11 @@ public class CRUD extends HttpServlet {
             switch (tipo){
                 case "nuevoVehiculo":
                     String marca,modelo,detalles;
-                    int año=-1,kilometraje=-1,precio=-1;
+                    int año=-1,kilometraje=-1,precio=-1,stock=-1;
                     marca = request.getParameter("marca");
+                    if (marca.equals("otro")) {
+                        marca = request.getParameter("marcaText");
+                    }
                     modelo = request.getParameter("modelo");
                     if (Utilidades.isNumeric(request.getParameter("anio"))){
                         año = Integer.valueOf(request.getParameter("anio"));
@@ -53,12 +56,24 @@ public class CRUD extends HttpServlet {
                     if (Utilidades.isNumeric(request.getParameter("precio"))){
                         precio = Integer.valueOf(request.getParameter("precio"));
                     }
+                    if (Utilidades.isNumeric(request.getParameter("stock"))){
+                        stock = Integer.valueOf(request.getParameter("stock"));
+                    }
                     int id = -1;
                     if(request.getParameter("id")!=null){
                       id = Integer.valueOf(request.getParameter("id"));  
                     }
-                     
-                    String mensaje = Factoria.crearVehiculo(id,false, marca, modelo, año, kilometraje, precio, 1, detalles, null,"DD/MM/AAAA");
+                    boolean nuevo = false;
+                    if (request.getParameter("nuevo")!=null&&request.getParameter("nuevo").equals("nuevo")) {
+                        nuevo = true;
+                    }
+                    
+                    String fotosStr = request.getParameter("fotos");
+                    String fotos[] = null;
+                    if (fotosStr != null && !fotosStr.equals("")) {
+                        fotos = fotosStr.split(";");
+                    }
+                    String mensaje = Factoria.crearVehiculo(id,nuevo, marca, modelo, año, kilometraje, precio, stock, detalles, fotos,"DD/MM/AAAA");
                     if (mensaje.equals("El vehiculo se ha agregado con éxito")) {
                         request.setAttribute("tipoMensaje", "success");
                         request.setAttribute("mensajeTitulo", "Bien!");
@@ -69,6 +84,7 @@ public class CRUD extends HttpServlet {
                     }
                     request.setAttribute("mensaje", mensaje);
                     request.getRequestDispatcher("vista/index.jsp").forward(request, response);
+//                    response.sendRedirect("Inicio?mensaje="+mensaje);
                     break;
                 default:
                     request.getRequestDispatcher("vista/index.jsp").forward(request, response);

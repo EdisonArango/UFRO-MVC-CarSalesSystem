@@ -21,6 +21,21 @@ public class Utilidades {
         return (str.matches("[+-]?\\d*(\\.\\d+)?") && str.equals("")==false);
     }
     
+    public static String numeroADinero (int numero){
+        char[] partes = (numero+"").toCharArray();
+        String dinero = "";
+        int veces = 0;
+        for (int i = partes.length-1; i >=0; i--) {
+            dinero = partes[i] + dinero;
+            veces++;
+            if (i>0&&veces==3) {
+                veces=0;
+                dinero = "." + dinero;
+            }  
+        }
+        return dinero;
+    }
+    
     public static ArrayList<String> diasDeRango(String fechaIn,String fechaFin){
             ArrayList<String> fechas = new ArrayList<>();
             String fechaActual = fechaIn;
@@ -100,17 +115,18 @@ public class Utilidades {
     }
     
     public static void main(String[] args) {
-		String[] valores = {"Edison","Felipe","Pepe","Carlos"};
-		int[] cantidades = {0,4,1,2};
-		
-		LinkedHashMap<Object,Integer> map = Utilidades.ordenarObjetosDeMayorAMenor(valores, cantidades);
-		
-		Iterator<Object> keySetIterator = map.keySet().iterator();
-
-		while(keySetIterator.hasNext()){
-		  Object key = keySetIterator.next();
-		  System.out.println("key: " + (String)key + " value: " + map.get(key));
-		}
-	}
+//		String[] valores = {"Edison","Felipe","Pepe","Carlos"};
+//		int[] cantidades = {0,4,1,2};
+//		
+//		LinkedHashMap<Object,Integer> map = Utilidades.ordenarObjetosDeMayorAMenor(valores, cantidades);
+//		
+//		Iterator<Object> keySetIterator = map.keySet().iterator();
+//
+//		while(keySetIterator.hasNext()){
+//		  Object key = keySetIterator.next();
+//		  System.out.println("key: " + (String)key + " value: " + map.get(key));
+//		}
+        System.out.println(Utilidades.numeroADinero(231468565));
+    }
     
 }

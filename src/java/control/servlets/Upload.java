@@ -11,6 +11,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -19,9 +20,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.tomcat.util.http.fileupload.FileItem;
 import org.apache.tomcat.util.http.fileupload.FileItemFactory;
 import org.apache.tomcat.util.http.fileupload.FileItemIterator;
 import org.apache.tomcat.util.http.fileupload.FileItemStream;
+import org.apache.tomcat.util.http.fileupload.RequestContext;
 import org.apache.tomcat.util.http.fileupload.disk.DiskFileItemFactory;
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
@@ -47,33 +50,25 @@ public class Upload extends HttpServlet {
         
         FileItemFactory factory = new DiskFileItemFactory();
         ServletFileUpload upload = new ServletFileUpload(factory);
-        String ruta = System.getProperty("catalina.base") + "/RepoArchivos/autos";
-//        String ruta = getServletContext().getRealPath("/");
-        String id = request.getParameter("id");
-        String actual = request.getParameter("actual");
-        // req es la HttpServletRequest que recibimos del formulario.
-        // Los items obtenidos serán cada uno de los campos del formulario,
-        // tanto campos normales como ficheros subidos.
         FileItemIterator iter = upload.getItemIterator(request);
         
+        String ruta = System.getProperty("catalina.base")+"/RepoArchivos";
         while (iter.hasNext()) {
             FileItemStream item = iter.next();
             InputStream input = item.openStream();
 //           FileItem uploaded = (FileItem) item;
             
-            
             if(!item.isFormField()){
-                String nombre = item.getName();
-                String[] partesNombre = nombre.split("\\.");
-                nombre = id+"-"+actual+"."+partesNombre[partesNombre.length-1];
-                System.out.println("Nombre = "+nombre);
+                String nombre=item.getName();
+//                String[] partesNombre = nombre.split("\\.");
                 File dstFile = new File(ruta);
                     if (!dstFile.exists()){
                          dstFile.mkdirs();
                     }
                     File dst = new File(dstFile.getPath()+ "/" + nombre);
-
+//                    File dst = new File(dstFile.getPath()+ "/" + actual + "." +partesNombre[partesNombre.length-1]);
                 saveUploadFile(input, dst);
+//                actual++;
             }
         
         }

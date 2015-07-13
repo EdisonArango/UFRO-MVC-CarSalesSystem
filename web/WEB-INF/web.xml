@@ -11,4 +11,13 @@
     <welcome-file-list>
         <welcome-file>vista/index.jsp</welcome-file>
     </welcome-file-list>
+    
+<!--    <servlet>
+        <servlet-name>fileServlet</servlet-name>
+        <servlet-class>control.util.FileServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>fileServlet</servlet-name>
+        <url-pattern>/file/*</url-pattern>
+    </servlet-mapping>-->
 </web-app>

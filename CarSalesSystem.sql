@@ -69,7 +69,7 @@ CREATE TABLE IF NOT EXISTS `Vehiculo` (
 `id` int(10) NOT NULL,
   `marca` varchar(255) DEFAULT NULL,
   `modelo` varchar(255) DEFAULT NULL,
-  `año` int(4) DEFAULT NULL,
+  `ano` int(4) DEFAULT NULL,
   `kilometraje` int(10) DEFAULT NULL,
   `precio` int(10) DEFAULT NULL,
   `stock` int(5) DEFAULT NULL,

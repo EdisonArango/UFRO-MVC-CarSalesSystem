@@ -33,8 +33,8 @@ public class NuevoAuto extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        int id = Factoria.crearVehiculo();
-        request.setAttribute("id", id);
+//        int id = Factoria.crearVehiculo();
+//        request.setAttribute("id", id);
         request.getRequestDispatcher("vista/agregarAuto.jsp").forward(request, response);
         
     }

@@ -43,9 +43,9 @@ public class Factoria {
                 vehiculoNuevo.setFechaIngreso(fechaIngreso);
                 
                 if(imagenes!=null){
-                    for (int i = 0; i < imagenes.length; i++) {
+                    for (String imagen : imagenes) {
                         Imagen nuevaImagen = Imagen.createImagen();
-                        nuevaImagen.setRuta(imagenes[i]);
+                        nuevaImagen.setRuta(imagen);
                         vehiculoNuevo.imagenes.add(nuevaImagen);
                     }
                 }
@@ -78,28 +78,22 @@ public class Factoria {
             }
        }
 
-	public Vehiculo[] obtenerVehiculos(String busqueda) throws PersistentException {
+	public static Vehiculo[] obtenerVehiculos(String busqueda) throws PersistentException {
         
             return Vehiculo.listVehiculoByQuery(null, null);
                                 
 	}
 
-	public Vehiculo obtenerVehiculo(int id) {
+	public static Vehiculo obtenerVehiculo(String id) {
             try {
-                Vehiculo vehiculo = Vehiculo.loadVehiculoByORMID(id);
-                if(vehiculo!=null){
-                    return vehiculo;
-                }
-                else{
-                    return null;
-                }
+                Vehiculo vehiculo = Vehiculo.loadVehiculoByQuery("id="+id, null);
+                return vehiculo;
             } catch (PersistentException ex) {
-                Logger.getLogger(Factoria.class.getName()).log(Level.SEVERE, null, ex);
+                return null;
             }
-            return null;
 	}
 
-	public String crearReserva(int idVehiculo, String nombreReserv, String telefonoReserv, String correo) {
+	public static String crearReserva(int idVehiculo, String nombreReserv, String telefonoReserv, String correo) {
                      
         Reservador reserva = Reservador.createReservador();
         //si reserva no existe, entonces se crea

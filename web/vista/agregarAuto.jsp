@@ -9,7 +9,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" href="vista/css/styles.css"/>
+        <link rel="stylesheet" href="vista/css/estilos.css"/>
         <link rel="stylesheet" href="vista/lib/bootstrap/css/bootstrap.min.css"/>
         <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/themes/base/jquery-ui.css"/>
         <link rel="stylesheet" href="vista/lib/plupload/jquery.ui.plupload/css/jquery.ui.plupload.css"/>
@@ -24,15 +24,14 @@
         <script src="vista/js/funciones.js"></script>
         <title>Agregar Auto</title>
     </head>
-    <body>
-        <div style="margin-left: 300px;margin-right: 300px;border: 1px solid #ccc;">
+    <body style="background-color: #d4d3d3">
+        <div id="header"></div>
+        <div style="margin-left: 300px;margin-right: 300px;padding: 10px;background-color: #ffffff">
             <h2>Agregar nuevo auto</h2>
             <div style="margin-bottom: 4px;" class="border_bottom"></div>
-            <form method="get" action="../CRUD" enctype="multipart/form-data">
+            <form method="post" action="CRUD" enctype="multipart/form-data">
             <input type="hidden" name="tipo" value="nuevoVehiculo">
-            <input type="text" name="id" id="id" value="${id}">
-            <input type="text" name="actual" id="actual" value="1">
-            
+            <input type="hidden" name="fotos" id="fotos" value="">            
             <div class="row">
                 
                 <div class="form-group col-md-4">
@@ -41,8 +40,14 @@
                       <option value="ferrari">Ferrari</option> 
                       <option value="lamborghini">Lamborghini</option>   
                       <option value="audi">Audi</option>   
-                      <option value="BMW">BMW</option>   
+                      <option value="BMW">BMW</option> 
+                      <option value="otro">Otro</option>   
                   </select>
+                </div>
+                        
+                <div id="marcaText" class="form-group col-md-4" style="display:none">
+                  <label for="marcaText">Marca:</label>
+                  <input type="text" class="form-control"  name="marcaText" placeholder="Chevrolet">
                 </div>
                 
                 <div class="form-group col-md-4">
@@ -56,13 +61,13 @@
                 </div>
                 
             </div>
-            
+                    
                  <div class="row">
                      
                   <div class="form-group col-md-4">
                       <div style="margin-left: 20px;" class="checkbox">
                         <label>
-                          <input type="checkbox" id="nuevoAuto" name="nuevo"> Auto nuevo
+                            <input type="checkbox" id="nuevoAuto" name="nuevo" value="nuevo"> Auto nuevo
                         </label>
                       </div>
                   </div>
@@ -91,7 +96,7 @@
                     </div>
                     
                     <div class="form-group">
-                    <label class="sr-only" for="precio">Precio (CLP)</label>
+                    <label  for="precio">Precio (CLP)</label>
                     <div class="input-group">
                       <div class="input-group-addon">$</div>
                       <input type="text" class="form-control" id="precio" name="precio" placeholder="Valor">

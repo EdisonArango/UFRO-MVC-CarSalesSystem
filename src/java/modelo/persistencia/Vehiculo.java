@@ -379,7 +379,7 @@ public class Vehiculo implements Serializable {
 	@Column(name="modelo", nullable=true, length=255)	
 	private String model;
 	
-	@Column(name="año", nullable=true, length=4)	
+	@Column(name="ano", nullable=true, length=4)	
 	private Integer año;
 	
 	@Column(name="kilometraje", nullable=true, length=10)	

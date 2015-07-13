@@ -6,7 +6,7 @@
 
 $(function() {
     
-    $("#nuevoAuto").bind( "click", function() {
+    $("#nuevoAuto").change(function() {
          if ($('#nuevoAuto').is(':checked')) {
              $("#kilometrajeGroup").hide();
              $("#stockGroup").show();
@@ -17,6 +17,18 @@ $(function() {
          }
     });
     
+    $("#marca").bind("change", function () {
+        if ($("#marca").val()==="otro") {
+            $("#marcaText").show();
+        }
+        else{
+            $("#marcaText").hide();
+        }
+    });
+    
+    $("#listadoAutos").load("Inicio?tipo=listadoAutos");
+    $("#header").load("Inicio?tipo=header");
+    $("#galeria").load("VistaAuto?id="+$("#id").val()+"&tipo=slider&fotoPrincipal="+$("#fotoPrincipal").val());
 });
 
 

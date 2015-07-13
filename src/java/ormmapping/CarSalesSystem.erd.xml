@@ -92,7 +92,7 @@
       <Index>false</Index>
       <UserTypes/>
     </Column>
-    <Column name="año">
+    <Column name="ano">
       <PrimaryKey>false</PrimaryKey>
       <ForeignKey>false</ForeignKey>
       <Type>9</Type>
