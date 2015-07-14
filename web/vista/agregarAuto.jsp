@@ -88,14 +88,14 @@
                      
                 
                  </div>
-                    <div class="form-group">
+                        <div class="form-group">
                         <label for="detalles" class="control-label">Detalles:</label>
                         <div>
                             <textarea name="detalles" rows="4" class="form-control" id="detalles" placeholder="Ingrese los detalles del vehículo"></textarea>
                         </div>
-                    </div>
+                </div>
                     
-                    <div class="form-group">
+                <div class="form-group">
                     <label  for="precio">Precio (CLP)</label>
                     <div class="input-group">
                       <div class="input-group-addon">$</div>
@@ -108,6 +108,6 @@
             <br>
             <button style="width: 200px;" type="submit" class="btn btn-primary">Guardar</button>
             </form>
-            </div>
+        </div>
     </body>
 </html>

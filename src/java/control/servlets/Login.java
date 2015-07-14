@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import modelo.persistencia.Empleado;
+import modelo.servicios.Factoria;
 import org.orm.PersistentException;
 
 /**
@@ -33,9 +34,10 @@ public class Login extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
+     * @throws org.orm.PersistentException
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, PersistentException {
         String tipo = request.getParameter("tipo");
         HttpSession sesion = request.getSession();
         if (tipo==null||tipo.equals("")) {
@@ -44,6 +46,7 @@ public class Login extends HttpServlet {
                     request.getRequestDispatcher("vista/admin.jsp").forward(request, response);
                 }
                 else if(sesion.getAttribute("tipoUsuario").equals(1)){
+                    request.setAttribute("reservas", Factoria.obtenerReservas());
                     request.getRequestDispatcher("vista/vendedor.jsp").forward(request, response);
                 }
             }
@@ -63,10 +66,12 @@ public class Login extends HttpServlet {
             if (empleado!=null) {
                 sesion.setAttribute("nombre",empleado.getNombre());
                 sesion.setAttribute("tipoUsuario", empleado.getTipoUsuario());
+                sesion.setAttribute("id", empleado.getId());
                 if (empleado.getTipoUsuario()==0) {
                     request.getRequestDispatcher("vista/admin.jsp").forward(request, response);
                 }
                 else if(empleado.getTipoUsuario()==1){
+                    request.setAttribute("reservas", Factoria.obtenerReservas());   
                     request.getRequestDispatcher("vista/vendedor.jsp").forward(request, response);
                 }
                 else{
@@ -95,7 +100,11 @@ public class Login extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (PersistentException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -109,7 +118,11 @@ public class Login extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (PersistentException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

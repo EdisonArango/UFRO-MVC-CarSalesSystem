@@ -1,5 +1,6 @@
 package modelo.servicios;
 
+import control.util.Utilidades;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,7 +19,7 @@ public class Factoria {
         }
         
 	public static String crearVehiculo(int id,boolean nuevo, String marca, String modelo, int año,
-                int kilometraje, int precio, int stock, String detalles,String[] imagenes,String fechaIngreso) {
+                int kilometraje, int precio, int stock, String detalles,String[] imagenes) {
             try {
                 Vehiculo vehiculoNuevo=null;
                 if(id==-1){
@@ -42,7 +43,7 @@ public class Factoria {
                 vehiculoNuevo.setAño(año);
                 vehiculoNuevo.setPrecio(precio);
                 vehiculoNuevo.setDetalles(detalles);
-                vehiculoNuevo.setFechaIngreso(fechaIngreso);
+                vehiculoNuevo.setFechaIngreso(Utilidades.fechaActual());
                 
                 if(imagenes!=null){
                     for (String imagen : imagenes) {
@@ -89,6 +90,32 @@ public class Factoria {
                 return null;
             }
 	}
+        
+        public static boolean eliminarReserva(String id) {
+            try {
+                Venta venta = Venta.loadVentaByQuery("id="+id, null);
+                venta.getVehiculo().setStock(venta.getVehiculo().getStock()+1);
+                venta.getVehiculo().save();
+                venta.delete();
+                return true;
+            } catch (PersistentException ex) {
+                return false;
+            }
+	}
+        
+        public static boolean venderVehiculo(String idVenta,String idEmpleado) {
+            try {
+                Venta venta = Venta.loadVentaByQuery("id="+idVenta, null);
+                System.out.println("IdEmpleado:"+idEmpleado);
+                venta.setVendedor(Empleado.loadEmpleadoByQuery("id="+idEmpleado, null));
+                venta.setEstaVendido(1);
+                venta.setFechaVenta(Utilidades.fechaActual());
+                venta.save();
+                return true;
+            } catch (PersistentException ex) {
+                return false;
+            }
+	}
 
 	public static String crearReserva(int idVehiculo, String nombreReserv, String telefonoReserv, String correo) {
             try {
@@ -113,4 +140,18 @@ public class Factoria {
                 return "Error al realizar reserva";
             }
 	}
+        
+        public static Venta[] obtenerReservas() throws PersistentException{  
+            return Venta.listVentaByQuery("estaVendido=0", null);
+        }
+        
+        public static boolean eliminarVehiculo(String id){
+            try {
+                Vehiculo vehiculo = Vehiculo.loadVehiculoByQuery("id="+id, null);
+                vehiculo.delete();
+                return true;
+            } catch (PersistentException ex) {
+                return false;
+            }
+        }
 }

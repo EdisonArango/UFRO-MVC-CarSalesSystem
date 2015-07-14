@@ -53,5 +53,24 @@
          </div>
         </div>
         </div>
+           
+        <!-- Modal -->
+        <div class="modal fade" id="modalEliminar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <h3 class="modal-title" id="exampleModalLabel">Eliminar Vehículo</h3>
+                </div>
+                <div class="modal-body">
+                    <center> <p class="lead">¿Esta seguro que desea eliminar este vehículo?</p></center>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                  <a href="" id="botonEliminar" class="btn btn-danger">Eliminar</a>
+                </div>
+              </div>
+            </div>
+        </div>
     </body>
 </html>

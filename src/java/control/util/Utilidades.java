@@ -6,6 +6,8 @@
 package control.util;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 
@@ -34,6 +36,19 @@ public class Utilidades {
             }  
         }
         return dinero;
+    }
+    
+    public static String fechaActual (){
+        //Instanciamos el objeto Calendar
+        //en fecha obtenemos la fecha y hora del sistema
+        Calendar fecha = new GregorianCalendar();
+        //Obtenemos el valor del año, mes, día,
+        //hora, minuto y segundo del sistema
+        //usando el método get y el parámetro correspondiente
+        int año = fecha.get(Calendar.YEAR);
+        int mes = fecha.get(Calendar.MONTH);
+        int dia = fecha.get(Calendar.DAY_OF_MONTH);
+        return String.format("%02d",dia) + "/" + String.format("%02d",(mes+1)) + "/" + año;
     }
     
     public static ArrayList<String> diasDeRango(String fechaIn,String fechaFin){

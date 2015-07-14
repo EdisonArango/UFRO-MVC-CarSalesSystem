@@ -11,6 +11,10 @@
 <ul style="padding-left: 0px;">
     <% 
        Vehiculo[] vehiculos = (Vehiculo[])request.getAttribute("autos");
+       boolean permisoEdicion = false;
+       if (session.getAttribute("tipoUsuario")!=null&&(session.getAttribute("tipoUsuario").equals(0)||session.getAttribute("tipoUsuario").equals(1))) {
+               permisoEdicion = true;
+        }
         for (int i=0;i< vehiculos.length;i++){ %>
             <li class="media border_bottom">
                 <div class="media-left">
@@ -25,11 +29,16 @@
                   </a>
                 </div>
                 <div style="padding-top:12px; " class="media-body">
-                     <h4><a href="VistaAuto?id=<%=vehiculos[i].getId()%>" class="media-heading"><%=vehiculos[i].getMarca()%> <%=vehiculos[i].getModel()%> 
+                     <h4 style="display: inline-block"><a href="VistaAuto?id=<%=vehiculos[i].getId()%>" class="media-heading"><%=vehiculos[i].getMarca()%> <%=vehiculos[i].getModel()%> 
                          <% if(vehiculos[i].getNuevo()==1){ %>
                          <span class="label label-info">Nuevo</span>
                          <% } %>
-                         </a></h4>
+                         </a>
+                     </h4>
+                     <% if(permisoEdicion){ %>
+                            <a href="#" class="btn btn-primary btn-xs" style="display: inline-block"><span class="glyphicon glyphicon-edit"></span> Editar</a>
+                            <a href="#" data-toggle='modal' data-target='#modalEliminar' data-url="CRUD?tipo=eliminarVehiculo&id=<%=vehiculos[i].getId()%>" class="btn btn-danger btn-xs" style="display: inline-block"><span class="glyphicon glyphicon-remove"></span> Eliminar</a>
+                     <% } %>
                     <ul class="list-inline">
                         <li class="border_right"><%=vehiculos[i].getKilometraje() %> Km</li>
                         <li><b><%=vehiculos[i].getAño() %></b></li>

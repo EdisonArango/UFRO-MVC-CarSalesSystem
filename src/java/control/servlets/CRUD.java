@@ -8,12 +8,15 @@ package control.servlets;
 import control.util.Utilidades;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import modelo.servicios.Factoria;
+import org.orm.PersistentException;
 
 /**
  *
@@ -73,7 +76,7 @@ public class CRUD extends HttpServlet {
                     if (fotosStr != null && !fotosStr.equals("")) {
                         fotos = fotosStr.split(";");
                     }
-                    String mensaje = Factoria.crearVehiculo(id,nuevo, marca, modelo, año, kilometraje, precio, stock, detalles, fotos,"DD/MM/AAAA");
+                    String mensaje = Factoria.crearVehiculo(id,nuevo, marca, modelo, año, kilometraje, precio, stock, detalles, fotos);
                     if (mensaje.equals("El vehiculo se ha agregado con éxito")) {
                         request.setAttribute("tipoMensaje", "success");
                         request.setAttribute("mensajeTitulo", "Bien!");
@@ -102,6 +105,62 @@ public class CRUD extends HttpServlet {
                     request.setAttribute("mensaje", resultado);
                     request.getRequestDispatcher("vista/admin.jsp").forward(request, response);
                     break;
+                case "eliminarReserva":
+                    String idReserva = request.getParameter("id");
+                    if (Factoria.eliminarReserva(idReserva)) {
+                        request.setAttribute("tipoMensaje", "success");
+                        request.setAttribute("mensajeTitulo", "Bien!");
+                        request.setAttribute("mensaje", "Se ha eliminado correctamente la reserva");
+                        System.out.println("Exito, pronto al login");
+                    }
+                    else{
+                        request.setAttribute("tipoMensaje", "danger");
+                        request.setAttribute("mensajeTitulo", "Error!");
+                        request.setAttribute("mensaje", "Se ha producido un error al eliminar la reserva");
+                        System.out.println("Fracaso, pronto al login");
+                    }
+                    try {
+                        request.setAttribute("reservas", Factoria.obtenerReservas());
+                        request.getRequestDispatcher("vista/vendedor.jsp").forward(request, response);
+                    } catch (PersistentException ex) {
+                        request.getRequestDispatcher("vista/index.jsp").forward(request, response);
+                    }
+                    
+                    break;
+                 case "venderVehiculo":
+                    String idReser = request.getParameter("id");
+                    String idEmpleado = request.getParameter("idEmpleado");
+                    if (Factoria.venderVehiculo(idReser,idEmpleado)) {
+                        request.setAttribute("tipoMensaje", "success");
+                        request.setAttribute("mensajeTitulo", "Bien!");
+                        request.setAttribute("mensaje", "El vehículo se ha vendido con éxito");
+                    }
+                    else{
+                        request.setAttribute("tipoMensaje", "danger");
+                        request.setAttribute("mensajeTitulo", "Error!");
+                        request.setAttribute("mensaje", "Error al vender el vehículo");
+                    }
+                    try {
+                        request.setAttribute("reservas", Factoria.obtenerReservas());
+                        request.getRequestDispatcher("vista/vendedor.jsp").forward(request, response);
+                    } catch (PersistentException ex) {
+                        request.getRequestDispatcher("vista/index.jsp").forward(request, response);
+                    }
+                    break;
+                 case "eliminarVehiculo":
+                     String idVehiculo = request.getParameter("id");
+                     if (Factoria.eliminarVehiculo(idVehiculo)) {
+                        request.setAttribute("tipoMensaje", "warning");
+                        request.setAttribute("mensajeTitulo", "Eliminado!");
+                        request.setAttribute("mensaje", "El vehículo se ha eliminado con éxito");
+                     }
+                     else{
+                         request.setAttribute("tipoMensaje", "danger");
+                        request.setAttribute("mensajeTitulo", "Error!");
+                        request.setAttribute("mensaje", "Error al eliminar el vehículo");
+                     }
+                     request.getRequestDispatcher("vista/index.jsp").forward(request, response);
+                     break;
                 default:
                     request.getRequestDispatcher("vista/index.jsp").forward(request, response);
                     break;
